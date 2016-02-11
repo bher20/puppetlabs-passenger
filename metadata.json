@@ -1,6 +1,6 @@
 {
   "name": "puppetlabs-passenger",
-  "version": "0.4.1",
+  "version": "0.4.1.1",
   "author": "puppetlabs",
   "summary": "Configures and manages Passenger.",
   "license": "Apache-2.0",

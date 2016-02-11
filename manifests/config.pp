@@ -1,5 +1,6 @@
-#
-class passenger::config {
+class passenger::config (
+  $manage_passenger_conf,
+) {
 
   case $::osfamily {
     'debian': {
@@ -42,14 +43,15 @@ class passenger::config {
       }
     }
     'redhat': {
-
-      file { '/etc/httpd/conf.d/passenger.conf':
-        ensure  => present,
-        content => template('passenger/passenger-load.erb', 'passenger/passenger-enabled.erb'),
-        owner   => '0',
-        group   => '0',
-        mode    => '0644',
-        notify  => Service['httpd'],
+      if ($manage_passenger_conf) {
+        file { '/etc/httpd/conf.d/passenger.conf':
+          ensure  => present,
+          content => template('passenger/passenger-load.erb', 'passenger/passenger-enabled.erb'),
+          owner   => '0',
+          group   => '0',
+          mode    => '0644',
+          notify  => Service['httpd'],
+        }
       }
     }
     default:{

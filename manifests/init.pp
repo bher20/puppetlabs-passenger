@@ -68,13 +68,20 @@ class passenger (
   $passenger_version      = $passenger::params::passenger_version,
   $compile_passenger      = $passenger::params::compile_passenger,
   $include_build_tools    = false,
+  $manage_apache          = false,
+  $manage_passenger_conf  = false,
 ) inherits passenger::params {
 
-  include '::apache'
+  if ($manage_apache) {
+    include '::apache'
+  }
+
   include '::apache::dev'
 
   include '::passenger::install'
-  include '::passenger::config'
+  class { '::passenger::config':
+    manage_passenger_conf => $manage_passenger_conf,
+  }
 
   if $compile_passenger {
     class { '::passenger::compile': }
