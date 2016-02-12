@@ -78,7 +78,9 @@ class passenger (
 
   include '::apache::dev'
 
-  include '::passenger::install'
+  class { '::passenger::install':
+    passenger_version => $passenger_version,
+  }
   class { '::passenger::config':
     manage_passenger_conf => $manage_passenger_conf,
   }

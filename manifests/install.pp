@@ -1,7 +1,9 @@
-class passenger::install {
+class passenger::install (
+  $passenger_version
+) {
 
   package { 'passenger':
-    ensure   => $passenger::package_ensure,
+    ensure   => $passenger_version,
     name     => $passenger::package_name,
     provider => $passenger::package_provider,
   }
